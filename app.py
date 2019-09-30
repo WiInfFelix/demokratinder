@@ -7,7 +7,7 @@ class VoteEnum(Enum):
     NOPE = 0
     NEUTRAL = 2
 
-
+clientCount = 0
 voteDict = {}
 
 cookieName = "DemokratinerID"
@@ -20,6 +20,7 @@ IPAddr = socket.gethostbyname(hostname)
 def index():
     if request.get_cookie(cookieName):
         clientID = request.get_cookie(cookieName)
+        clientCount = clientCount + 1
         print(voteDict)
         if clientID in voteDict:
             return template('<b>Hello {{name}}, du neidischer Schwanz! Du Fanboi! Schön, dass du wieder hier bist</b>!', name=clientID)
