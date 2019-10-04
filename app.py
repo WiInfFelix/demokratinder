@@ -1,6 +1,7 @@
-from bottle import route, run, template, request, response, get
+from bottle import route, view, run, template, request, response, get
 from enum import Enum
 import socket
+
 
 class VoteEnum(Enum):
     LIKE = 1
@@ -22,13 +23,15 @@ def index():
         clientID = request.get_cookie(cookieName)
         print(voteDict)
         if clientID in voteDict:
-            return template('<b>Hello {{name}}, du neidischer Schwanz! Du Fanboi! Schön, dass du wieder hier bist</b>!', name=clientID)
+            return template('index',
+                            name=clientID)
     else:
         countTinderer = str(len(voteDict) + 1)
         clientID = "TinderGuru " + countTinderer
         response.set_cookie(cookieName, clientID)
         voteDict[clientID] = VoteEnum.NEUTRAL
         print(voteDict)
-        return template('<b>Hello {{name}}, du neidischer Schwanz! Du Fanboi! Du bist jetzt dabei!</b>!', name=clientID)
+        return template('index', name=clientID)
 
-run(host=IPAddr, port=8080, debug=True)
+
+run(host=IPAddr, port=8080, debug=True, reloader=True)
