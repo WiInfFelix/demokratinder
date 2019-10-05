@@ -7,11 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./views/style.css">
 
     <title>Hello, world!</title>
   </head>
   <body>
+  <div class="container">
     <div class="jumbotron">
       <h1>Hello, {{name}}!</h1>
       <p class="lead">This is a democratic client for your tinder account.You can use it to search for the love of your live
@@ -19,8 +20,9 @@
       <hr class="my-4">
       <a class="btn btn-primary btn-lg">Get started</a>
     </div>
+    </div>
     <div class="container">
-      <img src="qrcode.png">
+      <img src="./views/qrcode.png">
     </div>
 
     <!-- Optional JavaScript -->
