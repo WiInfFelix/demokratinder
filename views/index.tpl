@@ -15,15 +15,16 @@
   <div class="container">
     <div class="jumbotron">
       <h1>Hello, {{name}}!</h1>
-      <p class="lead">This is a democratic client for your tinder account.You can use it to search for the love of your live
+      <p class="lead">This is a democratic client for your tinder account. You can use it to search for the love of your live
       with your friends!</p>
       <hr class="my-4">
-      <a class="btn btn-primary btn-lg">Get started</a>
+      <a class="btn btn-lg">Get started</a>
     </div>
-    </div>
-    <div class="container">
+  </div>
+  <div class="container qrcode">
       <img src="./views/qrcode.png">
-    </div>
+      <p>This is a QR-Code to invite your friends to join and vote!</p>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

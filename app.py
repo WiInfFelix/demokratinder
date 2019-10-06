@@ -40,7 +40,7 @@ def index():
             clientID = "TinderGuru " + countTinderer
             response.set_cookie(cookieName, clientID)
             voteDict[clientID] = VoteEnum.NEUTRAL
-            print("Anmeldung ohne Coockie. Neue Datenbank: " + voteDict)
+            print("Anmeldung ohne Coockie. Neue Datenbank: ")
             return template('index', name=clientID, css = send_static("style.css"), qrc = send_static("qrcode.png"))
     finally:
         pass
