@@ -45,10 +45,9 @@ def index():
     finally:
         pass
 
-@route('./<filename:path>')
+@route('<filename:path>')
 def send_static(filename):
-    print("lecker2")
-    return static_file(filename, root='views/')       
+    return static_file(filename, root = '')
 
 
 run(host=IPAddr, port=8080, debug=True, reloader=True)
