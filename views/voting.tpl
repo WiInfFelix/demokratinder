@@ -15,10 +15,15 @@
   <div class="container">
     <div class="jumbotron">
       <h1>Hello, {{name}}!</h1>
-      <p class="lead">This is a democratic client for your tinder account. You can use it to search for the love of your live
-      with your friends!</p>
+      <p class="lead">What do you want to do?</p>
       <hr class="my-4">
-      <a href="./voting" class="btn btn-lg">Get started</a>
+      <form method="post">
+        <button type="submit" name="vote" value="yes" class="btn">Yes</button>
+        <button type="submit" name="vote" value="nope" class="btn">Nope</button>
+        <button type="submit" name="vote" value="next" class="btn">Next Picture</button>
+        <button type="submit" name="vote" value="info" class="btn">Show Info</button>
+        <button type="submit" name="vote" value="no_info" class="btn">Hide Info</button>
+      </form>
     </div>
   </div>
   <div class="container qrcode">

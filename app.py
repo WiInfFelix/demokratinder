@@ -49,5 +49,21 @@ def index():
 def send_static(filename):
     return static_file(filename, root = '')
 
+@get('/voting')
+def get_voting_page():
+    if request.get_cookie(cookieName) in voteDict:
+        clientID = request.get_cookie(cookieName)
+        return template('voting', name=clientID)
+    else:
+        index()
+
+@post('/voting')
+def vote():
+    clientID = request.get_cookie(cookieName)
+    vote = request.forms.get('vote')
+
+
+    return template('voting', name=clientID)
+
 
 run(host=IPAddr, port=8080, debug=True, reloader=True)
