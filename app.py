@@ -3,6 +3,7 @@ from enum import Enum
 import socket
 import qrcode
 import os
+import logging
 
 
 class VoteEnum(Enum):
@@ -10,44 +11,52 @@ class VoteEnum(Enum):
     NOPE = 0
     NEUTRAL = 2
 
+
 clientCount = 0
 voteDict = {}
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 cookieName = "DemokratinerID"
 
 hostname = socket.gethostname()
 IPAddr = socket.gethostbyname(hostname)
-current_dir = os.path.dirname(os.path.realpath(__file__))
-viewfolder = os.path.join(current_dir, 'views\\')
-#os.remove(viewfolder + "qrcode.png")
+viewfolder = os.path.join(os.getcwd(), 'views\\')
+if(os.path.exists(os.getcwd() + r'\views\qrcode.png')):
+    os.remove(os.getcwd() + r'\views\qrcode.png')
+    logging.debug('Deleted old QR code')
+logging.debug('Created QR code')
 code = qrcode.make("http://" + IPAddr + ":8080")
 code.save(viewfolder + "qrcode.png", 'PNG')
+
 
 @get('/')
 def index():
     try:
         if request.get_cookie(cookieName):
             clientID = request.get_cookie(cookieName)
-            print("Anmeldung GET mit vorhandenem Cookie ")
+            logging.debug("Anmeldung GET mit vorhandenem Cookie")
             if clientID in voteDict:
-                print("Cookie in der Datenbank")
+                logging.debug("Cookie in der Datenbank gefunden")
             else:
-                print("Cookie nicht in der Datenbank -> neu hinzugefügt")
+                logging.debug("Kein Cookie in der Datenbank gefunden")
                 voteDict[clientID] = VoteEnum.NEUTRAL
+                logging.debug(f"Cookie erstellt!")
             return template('index', name=clientID)
         else:
             countTinderer = str(len(voteDict) + 1)
             clientID = "TinderGuru " + countTinderer
             response.set_cookie(cookieName, clientID)
             voteDict[clientID] = VoteEnum.NEUTRAL
-            print("Anmeldung ohne Coockie. Neue Datenbank: ")
-            return template('index', name=clientID, css = send_static("style.css"), qrc = send_static("qrcode.png"))
+            logging.debug("Anmeldung ohne Cookie! Neue Datenbank: ")
+            return template('index', name=clientID, css=send_static("style.css"), qrc=send_static("qrcode.png"))
     finally:
         pass
 
+
 @route('<filename:path>')
 def send_static(filename):
-    return static_file(filename, root = '')
+    return static_file(filename, root='')
 
 
 run(host=IPAddr, port=8080, debug=True, reloader=True)
