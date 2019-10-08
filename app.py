@@ -4,6 +4,7 @@ import socket
 import qrcode
 import os
 import logging
+from EventManager import EventManager
 
 
 class VoteEnum(Enum):
@@ -15,19 +16,22 @@ class VoteEnum(Enum):
 clientCount = 0
 voteDict = {}
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 cookieName = "DemokratinerID"
-
 hostname = socket.gethostname()
 IPAddr = socket.gethostbyname(hostname)
+
 viewfolder = os.path.join(os.getcwd(), 'views\\')
 if(os.path.exists(os.getcwd() + r'\views\qrcode.png')):
     os.remove(os.getcwd() + r'\views\qrcode.png')
     logging.debug('Deleted old QR code')
-logging.debug('Created QR code')
+logging.debug('Created new QR code')
 code = qrcode.make("http://" + IPAddr + ":8080")
 code.save(viewfolder + "qrcode.png", 'PNG')
+
+evtMan = EventManager()
 
 
 @get('/')

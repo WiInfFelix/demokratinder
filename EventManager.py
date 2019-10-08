@@ -1,7 +1,12 @@
 import keyboard
 
+from VoteManager import VoteManager
+
 
 class EventManager():
+
+    def __init__(self):
+        self.voteMan = VoteManager()
 
     def like(self):
         keyboard.press_and_release('rigth')
