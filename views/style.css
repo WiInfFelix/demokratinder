@@ -11,6 +11,8 @@ body {
 .btn {
     background-color: #EF626C;
     border-color: wheat !important;
+    font-size: 3em;
+    color: wheat;
 }
 .btn:hover {
     background-color: #d16069;
@@ -24,4 +26,19 @@ img {
 }
 a {
     text-decoration: none;
+}
+#yes:hover {
+    color: green;
+}
+#nope:hover {
+    color: red;
+}
+#next:hover {
+    color: black;
+}
+#info:hover {
+    color: white;
+}
+#no_info:hover {
+    color: steelblue;
 }
