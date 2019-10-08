@@ -1,5 +1,6 @@
-import app as app
+from app import app
 from collections import Counter
+import keyboard
 
 
 class VoteManager:
@@ -44,6 +45,24 @@ class VoteManager:
             call the EventManager for the right action
             call flush
         '''
+
+    def like(self):
+        keyboard.press_and_release('rigth')
+
+    def nope(self):
+        keyboard.press_and_release('left')
+
+    def next_pic(self):
+        keyboard.press_and_release('space')
+
+    def open_info(self):
+        keyboard.press_and_release('down')
+
+    def close_info(self):
+        keyboard.press_and_release('up')
+
+    def superlike(self):
+        keyboard.press_and_release('enter')
 
     def flush(self):
         self.voteDict.clear()

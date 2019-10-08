@@ -4,7 +4,6 @@ import socket
 import qrcode
 import os
 import logging
-from EventManager import EventManager
 
 
 class VoteEnum(Enum):
@@ -30,8 +29,6 @@ if(os.path.exists(os.getcwd() + r'\views\qrcode.png')):
 logging.debug('Created new QR code')
 code = qrcode.make("http://" + IPAddr + ":8080")
 code.save(viewfolder + "qrcode.png", 'PNG')
-
-evtMan = EventManager()
 
 
 @get('/')
