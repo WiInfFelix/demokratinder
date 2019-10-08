@@ -10,7 +10,7 @@ class VoteEnum(Enum):
     NOPE = 0
     NEUTRAL = 2
 
-
+clientCount = 0
 voteDict = {}
 
 cookieName = "DemokratinerID"
