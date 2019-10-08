@@ -1,4 +1,4 @@
- democratic experience for Tinder**
+# Demokratinder
 
 ## What is Demokratinder?
 Demokratinder is the attempt to enhance your Tinder
@@ -17,11 +17,11 @@ better than your friends?
 * Run the executable on your computer
 * A server will start in the background and host your
 session
-*Open a browser to 1921681782 :8080 on your phone
-*Show the QR code to your friends
-*Each of you should be greeted with a different
+* Open a browser to 1921681782 :8080 on your phone
+* Show the QR code to your friends
+* Each of you should be greeted with a different
 identifier
-*Get started!
+* Get started!
 
 ## Technical stuff
 Demokratinder is built in Python. The web server is
