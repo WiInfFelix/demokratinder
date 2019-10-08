@@ -18,7 +18,7 @@
       <p class="lead">This is a democratic client for your tinder account. You can use it to search for the love of your live
       with your friends!</p>
       <hr class="my-4">
-      <a class="btn btn-lg">Get started</a>
+      <a href="./voting" class="btn btn-lg">Get started</a>
     </div>
   </div>
   <div class="container qrcode">
