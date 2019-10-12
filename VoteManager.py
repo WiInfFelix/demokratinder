@@ -1,38 +1,41 @@
-from app import app
 from collections import Counter
 import keyboard
+import logging
 
 
 class VoteManager:
-    voteDict = {}
 
     def __init__(self):
+        self.client_count = 0
         self.voteDict = {}
 
-    def add_vote(self, cookieid: str, vote: app.VoteEnum):
-        self.voteDict[cookieid] = vote
-        self.evaluateVotes()
-        '''
-        check if cookieID is already put into the dict
-        if yes:
-            add cookie vote and increment counter of votes given
-        else:
-            discard vote with no answer
+    def decide(self, client_id: str, vote: str):
 
-        call evaluateVotes
-        '''
+        decision = {
+            'yes': self.add_vote,
+            'nope': self.add_vote,
+            'next': self.next_pic,
+            'info': self.open_info,
+            'no_info': self.close_info,
+        }
+
+        decision[vote](client_id, vote)
+
+    def add_vote(self, cookie_id: str, vote: str):
+        self.voteDict[cookie_id] = vote
+        self.evaluate_votes()
+        
 
     def evaluate_votes(self):
-        if len(self.voteDict) == app.clientCount:
+        if len(self.voteDict) == self.client_count:
             vote_res = Counter(self.voteDict).most_common(1)
 
-            if vote_res[0][1] == app.VoteEnum.LIKE:
-                # swipe to the right
-                pass
+            if vote_res[0][1] == 2:
+                logging.info('Swiped right')
+                #like()
             else:
-                # swipe to the left
-                pass
-
+                logging.info('Swiped left')
+                #nope()
             self.flush()
         else:
             return
@@ -52,17 +55,24 @@ class VoteManager:
     def nope(self):
         keyboard.press_and_release('left')
 
-    def next_pic(self):
+    def next_pic(self, *args):
         keyboard.press_and_release('space')
 
-    def open_info(self):
+    def open_info(self, *args):
         keyboard.press_and_release('down')
 
-    def close_info(self):
+    def close_info(self, *args):
         keyboard.press_and_release('up')
 
-    def superlike(self):
+    def superlike(self, *args):
         keyboard.press_and_release('enter')
 
     def flush(self):
         self.voteDict.clear()
+
+    def increment_cookie_count(self):
+        self.client_count += 1
+        logging.info(f'Clientcount increased to {self.client_count}')
+
+    def decrement_cookie_count(self):
+        self.client_count -= 1
