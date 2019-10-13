@@ -23,7 +23,7 @@ def main():
 
     def browser_init():
         webbrowser.open_new('https://www.tinder.com')
-        webbrowser.open_new_tab(f'http://{IPAddr}:8080')
+        webbrowser.open_new_tab(f'http://{IPAddr}:8080/host')
 
     cookieName = "DemokratinerID"
     hostname = socket.gethostname()
@@ -82,6 +82,10 @@ def main():
         logging.debug(f'{user_vote} has been posted!')
         vtn.decide(client_id, user_vote)
         return template('voting', name=client_id)
+
+    @route('/host')
+    def host():
+        return template('host', name='Tinder-Host')
 
     run(host=IPAddr, port=8080, debug=True)
 
