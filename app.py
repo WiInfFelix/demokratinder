@@ -79,13 +79,21 @@ def main():
     def vote():
         client_id = request.get_cookie(cookieName)
         user_vote = request.forms.get('vote')
+        logging.debug(user_vote)
         logging.debug(f'{user_vote} has been posted!')
         vtn.decide(client_id, user_vote)
-        return template('voting', name=client_id)
+        return 'voteAccepted'
 
     @route('/host')
     def host():
         return template('host', name='Tinder-Host')
+
+    @route('/logout')
+    def logout():
+        voteDict.pop(request.get_cookie(cookieName), None)
+        response.delete_cookie(cookieName)
+        vtn.decrement_cookie_count()
+        return 'logout'
 
     run(host=IPAddr, port=8080, debug=True)
 

@@ -8,6 +8,20 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./views/style.css">
+    <script type="application/ecmascript">
+      var lastVote = null;
+      function vote(vote) {
+        lastVote = vote;
+      }
+      function postVote(vote) {
+        var http = new XMLHttpRequest();
+        http.open("POST", window.location.href, true);
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        var params = "vote=" + vote;
+        http.send(params);
+        http.onload = function () {}
+      }
+    </script>
 
     <title>Demokratinder</title>
   </head>
@@ -17,15 +31,14 @@
       <h1>Hello, {{name}}!</h1>
       <p class="lead">What do you want to do?</p>
       <hr class="my-4">
-      <form method="post">
-        <button type="submit" name="vote" value="yes" class="btn" id="yes"><span class="iconify" data-icon="simple-line-icons:like"></span></button>
-        <button type="submit" name="vote" value="nope" class="btn" id="nope"><span class="iconify" data-icon="simple-line-icons:dislike"></span></button>
-        <button type="submit" name="vote" value="next" class="btn" id="next"><span class="iconify" data-icon="simple-line-icons:control-forward"></span></button>
-        <button type="submit" name="vote" value="info" class="btn" id="info"><span class="iconify" data-icon="simple-line-icons:info"></span></button>
-        <button type="submit" name="vote" value="no_info" class="btn" id="no_info"><span class="iconify" data-icon="simple-line-icons:arrow-down-circle"></span></button>
-      </form>
+        <button onclick="postVote('yes')" name="vote" value="yes" class="btn" id="yes"><span class="iconify" data-icon="simple-line-icons:like"></span></button>
+        <button onclick="postVote('nope')" name="vote" value="nope" class="btn" id="nope"><span class="iconify" data-icon="simple-line-icons:dislike"></span></button>
+        <button onclick="postVote('next')" name="vote" value="next" class="btn" id="next"><span class="iconify" data-icon="simple-line-icons:control-forward"></span></button>
+        <button onclick="postVote('info')" name="vote" value="info" class="btn" id="info"><span class="iconify" data-icon="simple-line-icons:info"></span></button>
+        <button onclick="postVote('no_info')" name="vote" value="no_info" class="btn" id="no_info"><span class="iconify" data-icon="simple-line-icons:arrow-down-circle"></span></button>
     </div>
   </div>
+  <a href="./logout" class="btn">Logout</a>
   <div class="container qrcode">
       <img src="./views/qrcode.png">
       <p>This is a QR-Code to invite your friends to join and vote!</p>
