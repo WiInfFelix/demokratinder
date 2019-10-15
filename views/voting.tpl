@@ -38,7 +38,9 @@
         <button onclick="postVote('no_info')" name="vote" value="no_info" class="btn" id="no_info"><span class="iconify" data-icon="simple-line-icons:arrow-down-circle"></span></button>
     </div>
   </div>
-  <a href="./logout" class="btn">Logout</a>
+  <div class="d-flex justify-content-center">
+    <a href="./logout" class="btn">Logout</a>
+  </div>
   <div class="container qrcode">
       <img src="./views/qrcode.png">
       <p>This is a QR-Code to invite your friends to join and vote!</p>

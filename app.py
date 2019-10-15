@@ -93,7 +93,8 @@ def main():
         voteDict.pop(request.get_cookie(cookieName), None)
         response.delete_cookie(cookieName)
         vtn.decrement_cookie_count()
-        return 'logout'
+        logging.info('Cookie deleted and count decreased')
+        return template('logout')
 
     run(host=IPAddr, port=8080, debug=True)
 
