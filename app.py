@@ -1,3 +1,5 @@
+import signal
+
 from bottle import *
 from enum import Enum
 import socket
@@ -95,6 +97,12 @@ def main():
         vtn.decrement_cookie_count()
         logging.info('Cookie deleted and count decreased')
         return template('logout')
+
+    @route('/stop')
+    def stop():
+        proc = os.getpid()
+        os.kill(proc, signal.SIGTERM)
+        return 'Server stopped'
 
     run(host=IPAddr, port=8080, debug=True)
 

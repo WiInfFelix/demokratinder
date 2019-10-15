@@ -32,6 +32,9 @@
       <img src="./views/qrcode.png">
       <p>This is a QR-Code to invite your friends to join and vote!</p>
   </div>
+  <div class="d-flex justify-content-center">
+    <a href="./stop" class="btn">Stop Server</a>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
