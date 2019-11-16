@@ -12,6 +12,17 @@
     <title>Demokratinder</title>
   </head>
   <body>
+
+  <script>
+    function flushcookie() {
+        var http = new XMLHttpRequest();
+        http.open("POST", window.location.href, true);
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.send();
+        http.onload = function () {alert('Cookies flushed!')}
+      }
+  </script>
+
   <div class="container">
     <div class="jumbotron">
       <h1>Hello, {{name}}!</h1>
@@ -33,6 +44,7 @@
       <p>This is a QR-Code to invite your friends to join and vote!</p>
   </div>
   <div class="d-flex justify-content-center">
+    <button onclick="flushcookie()" name="flush" value="flush" class="btn" id="no_info">Flush Cookies</button>
     <a href="./stop" class="btn">Stop Server</a>
   </div>
 

@@ -4,6 +4,7 @@ from bottle import *
 from enum import Enum
 import socket
 import qrcode
+import time
 import os
 import logging
 import webbrowser
@@ -29,7 +30,8 @@ def main():
 
     cookieName = "DemokratinerID"
     hostname = socket.gethostname()
-    IPAddr = socket.gethostbyname(hostname)
+    print(hostname)
+    IPAddr = socket.gethostbyname_ex(hostname)[-1][-1]
 
     viewfolder = os.path.join(os.getcwd(), 'views\\')
     if (os.path.exists(os.getcwd() + r'\views\qrcode.png')):
@@ -56,12 +58,12 @@ def main():
                 return template('index', name=client_id)
             else:
                 count_tinderer = str(len(voteDict) + 1)
-                client_id = "TinderGuru " + count_tinderer
+                client_id = "TinderGuruID " + str(time.time())
                 response.set_cookie(cookieName, client_id)
                 vtn.increment_cookie_count()
                 voteDict[client_id] = VoteEnum.NEUTRAL
                 logging.debug("Anmeldung ohne Cookie!")
-                return template('index', name=client_id, css=send_static("style.css"), qrc=send_static("qrcode.png"))
+                return template('index', name="TinderGuruID " + client_id[-4:], css=send_static("style.css"), qrc=send_static("qrcode.png"))
         finally:
             pass
 
@@ -89,6 +91,13 @@ def main():
     @route('/host')
     def host():
         return template('host', name='Tinder-Host')
+
+    @post('/host')
+    def flush_cookie_dict():
+        logging.debug(f'FLUSHING {len(voteDict)} cookies')
+        voteDict.clear()
+        logging.debug(f'Flushing successful')
+        return('Votes flushed')
 
     @route('/logout')
     def logout():
