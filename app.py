@@ -75,7 +75,7 @@ def main():
     def get_voting_page():
         if request.get_cookie(cookieName) in voteDict:
             clientID = request.get_cookie(cookieName)
-            return template('voting', name=clientID)
+            return template('voting', name="TinderGuruID " + client_id[-4:])
         else:
             index()
 
