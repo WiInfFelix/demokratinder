@@ -1,0 +1,16 @@
+body {
+    margin: 1.5em;
+}
+
+.jumbotron {
+    background-color: #EF626C;
+    color: wheat;
+}
+
+.container {
+    text-align: center;
+}
+
+.Infotext {
+    font-size: 24px;
+}

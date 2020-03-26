@@ -1,0 +1,23 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+<div class="container">
+<div class="jumbotron">
+    <h1>Welcome to Demokratinder</h1>
+    <hr>
+    <p>
+        A democratric approach to the Tinder experience. Demokratinder is built to enable the decision support of your
+        amorous life by incorporating your friends into mix. After all, who would be better suited to
+    </p>
+</div>
+
+<div class="container" id="qr_container">
+    <img src="/assets/qr_code.png">
+    <p class="Infotext">Scan this QR code to get started!</p>
+</div>
+</div>
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}
