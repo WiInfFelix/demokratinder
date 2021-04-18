@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
-	"os"
 
 	"github.com/skip2/go-qrcode"
 )
@@ -19,27 +17,15 @@ func generateClientQR() {
 }
 
 func getIPofHost() string {
-	addrs, err := net.InterfaceAddrs()
+
+	conn, err := net.Dial("udp", "8.8.8.8:80")
 
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
+	defer conn.Close()
 
-	var currentIP string
+	currentIP := conn.LocalAddr().(*net.UDPAddr)
 
-	for _, address := range addrs {
-
-		// check the address type and if it is not a loopback the display it
-		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if ipnet.IP.To4() != nil {
-				currentIP = ipnet.IP.String()
-				fmt.Println(ipnet.IP.String())
-				break
-			}
-
-		}
-	}
-
-	return currentIP
+	return currentIP.IP.String()
 }
