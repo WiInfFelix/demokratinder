@@ -12,7 +12,7 @@ import (
 func generateClientQR() {
 	ip := getIPofHost()
 	log.Println("Generating QR Code...")
-	err := qrcode.WriteFile("http://"+ip+":5000/", qrcode.Medium, 512, "./public/qr.png")
+	err := qrcode.WriteFile("http://"+ip+":5000/voting", qrcode.Medium, 512, "./public/qr.png")
 	if err != nil {
 		log.Fatal(err)
 	}

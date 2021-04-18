@@ -7,24 +7,33 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./views/style.css">
+    <link rel="stylesheet" href="./public/styles.css">
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
     <title>Demokratinder</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="jumbotron">
-        <h1>Hello!</h1>
+        <h1>Welcome!</h1>
         <p class="lead">This is a democratic client for your tinder account. You can use it to search for the love of your live
             with your friends!</p>
-        <hr class="my-4">
-        <a href="./voting" class="btn btn-lg">Get started</a>
     </div>
 </div>
-<div class="container qrcode">
-    <img src="./public/qr.png">
+<div class="container-fluid">
+    <ul>
+        <li>Point your mobile device to the QR Code down below</li>
+        <li>Follow the link to the voting page and change to the tab with Tinder🔥</li>
+        <li>When your are done, kill the application with the button at the bottom of the page</li>
+    </ul>
+</div>
+<div class="container-fluid qrcode">
     <p>This is a QR-Code to invite your friends to join and vote!</p>
+    <img src="./public/qr.png">
+</div>
+
+<div class="container-fluid justify-content-center">
+    <button type="button">Kill application!</button>
 </div>
 
 <!-- Optional JavaScript -->
