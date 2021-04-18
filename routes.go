@@ -2,6 +2,8 @@ package main
 
 import (
 	"log"
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/olahol/melody.v1"
@@ -23,6 +25,12 @@ func setupRoutes() *gin.Engine {
 		context.HTML(200, "voting.html", nil)
 	})
 
+	r.GET("/exit", func(context *gin.Context) {
+		go gracefulDown()
+
+		context.HTML(200, "exit.html", nil)
+	})
+
 	m.HandleMessage(func(s *melody.Session, msg []byte) {
 		log.Println(string(msg))
 		Clients[s] = int(msg[1])
@@ -36,8 +44,13 @@ func setupRoutes() *gin.Engine {
 
 	m.HandleDisconnect(func(session *melody.Session) {
 		delete(Clients, session)
-		log.Printf("Client disconnected: %v.... %d Clients remaining\n", session, len(Clients))
+		log.Printf("Client disconnected: %v.... %d Clients remaining\n", *session, len(Clients))
 	})
 
 	return r
+}
+
+func gracefulDown() {
+	time.Sleep(5 * time.Second)
+	os.Exit(0)
 }
