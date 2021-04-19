@@ -32,9 +32,8 @@ func setupRoutes() *gin.Engine {
 	})
 
 	m.HandleMessage(func(s *melody.Session, msg []byte) {
-		log.Println(string(msg))
 		Clients[s] = int(msg[1])
-
+		CheckVotingMap()
 	})
 
 	m.HandleConnect(func(session *melody.Session) {

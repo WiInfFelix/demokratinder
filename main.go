@@ -15,6 +15,8 @@ func main() {
 	r.Static("/public", "./public")
 	r.LoadHTMLGlob("public/*.html")
 
+	initKeyboardMod()
+
 	browser.OpenURL("www.tinder.com")
 	browser.OpenURL("http://127.0.0.1:5000")
 
