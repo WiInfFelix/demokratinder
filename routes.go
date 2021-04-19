@@ -32,8 +32,15 @@ func setupRoutes() *gin.Engine {
 	})
 
 	m.HandleMessage(func(s *melody.Session, msg []byte) {
-		Clients[s] = int(msg[1])
-		CheckVotingMap()
+		log.Println(int(msg[1]))
+		if IsVote(int(msg[1])) {
+			log.Println("Vote given....")
+			Clients[s] = int(msg[1])
+			CheckVotingMap()
+		} else {
+			log.Println("Action key given...")
+			executeKeyStroke(int(msg[1]))
+		}
 	})
 
 	m.HandleConnect(func(session *melody.Session) {
