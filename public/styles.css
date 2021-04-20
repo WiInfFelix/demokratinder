@@ -1,0 +1,39 @@
+* {
+    text-align: center;
+}
+
+.container {
+    margin-top: 2em;
+    width: 90%;
+}
+
+form > button {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+button:active {
+    background-color: orangered;
+}
+button#yes:active {
+    background-color: rgba(128, 128, 128, 0.199);
+}
+button#nope:active {
+    background-color: rgba(128, 128, 128, 0.199);
+}
+.iconify {
+    font-size: 3em;
+}
+.iconify:active {
+    color: white;
+}
+#yes .iconify:active {
+    color: green;
+}
+#nope .iconify:active {
+    color: red;
+}
+.qrcode img {
+    max-width: 50%;
+}
