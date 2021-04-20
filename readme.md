@@ -1,1 +1,0 @@
-Demokratischer Client für Tinder!
