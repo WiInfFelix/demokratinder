@@ -1,11 +1,12 @@
 package main
 
 import (
+	"net"
+
 	"github.com/pkg/browser"
-	"gopkg.in/olahol/melody.v1"
 )
 
-var Clients = make(map[*melody.Session]int)
+var Clients = make(map[net.Conn]int)
 
 func main() {
 	r := setupRoutes()
