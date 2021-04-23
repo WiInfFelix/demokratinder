@@ -23,24 +23,48 @@ func setupRoutes() *gin.Engine {
 			log.Fatalf("There was an error initializing a WebSocket: %v", err)
 		}
 
+		Clients[conn] = 0
+
+		log.Printf("New client connected... %d clients taking part", len(Clients))
+
 		go func() {
 			defer conn.Close()
-
 			for {
 				msg, _, err := wsutil.ReadClientData(conn)
 				if err != nil {
-					log.Fatalf("There was an error getting client data: %v", err)
+					//if connection is close remove from Client list and exit loop
+					delete(Clients, conn)
+					err = nil
+					break
 				}
-				log.Println(int(msg[1]))
-				if IsVote(int(msg[1])) {
-					log.Println("Vote given....")
-					Clients[conn] = int(msg[1])
-					CheckVotingMap()
-				} else {
-					log.Println("Action key given...")
-					executeKeyStroke(int(msg[1]))
+
+				//if msg is ping, send back pong to client
+				if string(msg) == "ping" {
+					wsutil.WriteServerMessage(conn, ws.OpPong, []byte("pong"))
 				}
+
+				if msg != nil {
+
+					log.Printf("Vote given: %v \n", int(msg[1]))
+					if IsVote(int(msg[1])) {
+						log.Println("Vote given....")
+						Clients[conn] = int(msg[1])
+
+						decisionMade := CheckVotingMap()
+
+						//notiy all clients that vote was made
+						if decisionMade {
+							broadcastAll("reset_vote")
+						}
+
+					} else {
+						log.Println("Action key given...")
+						executeKeyStroke(int(msg[1]))
+					}
+				}
+
 			}
+			log.Printf("Client disconnected.... %d Clients remaining....", len(Clients))
 		}()
 
 	})
@@ -59,6 +83,12 @@ func setupRoutes() *gin.Engine {
 }
 
 func gracefulDown() {
-	time.Sleep(5 * time.Second)
+	time.Sleep(2 * time.Second)
 	os.Exit(0)
+}
+
+func broadcastAll(msg string) {
+	for x := range Clients {
+		wsutil.WriteServerMessage(x, ws.OpText, []byte(msg))
+	}
 }

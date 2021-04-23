@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/micmonay/keybd_event"
 	"log"
 	"runtime"
 	"time"
+
+	"github.com/micmonay/keybd_event"
 )
 
 var kb keybd_event.KeyBonding
 
-func CheckVotingMap() {
+func CheckVotingMap() (decisionMade bool) {
 	log.Println("Checking map for decisions....")
 
 	var voteCheck = make(map[int]int)
@@ -20,13 +21,14 @@ func CheckVotingMap() {
 	_, found := voteCheck[0]
 
 	if found {
-		return
+		return false
 	} else {
 		MakeKeyDecision(voteCheck)
 		for x := range Clients {
 			Clients[x] = 0
 		}
 		log.Println("Votes reset...")
+		return true
 	}
 
 }
