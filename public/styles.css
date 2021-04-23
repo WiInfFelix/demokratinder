@@ -16,10 +16,10 @@ form > button {
 button:active {
     background-color: orangered;
 }
-button#yes:active {
+button#yes.activated {
     background-color: rgba(128, 128, 128, 0.199);
 }
-button#nope:active {
+button#nope.activated {
     background-color: rgba(128, 128, 128, 0.199);
 }
 .iconify {
@@ -28,10 +28,10 @@ button#nope:active {
 .iconify:active {
     color: white;
 }
-#yes .iconify:active {
+#yes .iconify.activated {
     color: green;
 }
-#nope .iconify:active {
+#nope .iconify.activated {
     color: red;
 }
 .qrcode img {
