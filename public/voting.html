@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/styles.css">
-    <script type="text/javascript" src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="../public/overlay.css">
     <title>Demokratinder</title>
 </head>
 <body>
@@ -18,11 +18,18 @@
         <p class="lead">What do you want to do?</p>
         <hr class="my-4">
         <form method="post">
-            <button type="button" onclick="sendVote(this.value)" name="vote" value="1" class="btn" id="yes"><span class="iconify" data-icon="simple-line-icons:like"></span></button>
-            <button type="button" onclick="sendVote(this.value)" name="vote" value="2" class="btn" id="nope"><span class="iconify" data-icon="simple-line-icons:dislike"></span></button>
-            <button type="button" onclick="sendVote(this.value)" name="vote" value="3" class="btn" id="next"><span class="iconify" data-icon="simple-line-icons:control-forward"></span></button>
-            <button type="button" onclick="sendVote(this.value)" name="vote" value="4" class="btn" id="info"><span class="iconify" data-icon="simple-line-icons:info"></span></button>
-            <button type="button" onclick="sendVote(this.value)" name="vote" value="5" class="btn" id="no_info"><span class="iconify" data-icon="simple-line-icons:arrow-down-circle"></span></button>
+            <div class="voting-buttons">
+                <div class="button-overlay">
+                    <div class="overlay-content"><p>Change vote</p></div>
+                </div>
+                <button type="button" onclick="sendVote(this.value, this)" name="vote" value="1" class="btn" id="yes"><span class="iconify" data-icon="simple-line-icons:like"></span></button>
+                <button type="button" onclick="sendVote(this.value, this)" name="vote" value="2" class="btn" id="nope"><span class="iconify" data-icon="simple-line-icons:dislike"></span></button>
+            </div>
+            <div class="action-buttons">
+                <button type="button" onclick="sendVote(this.value)" name="vote" value="3" class="btn" id="next"><span class="iconify" data-icon="simple-line-icons:control-forward"></span></button>
+                <button type="button" onclick="sendVote(this.value)" name="vote" value="4" class="btn" id="info"><span class="iconify" data-icon="simple-line-icons:info"></span></button>
+                <button type="button" onclick="sendVote(this.value)" name="vote" value="5" class="btn" id="no_info"><span class="iconify" data-icon="simple-line-icons:arrow-down-circle"></span></button>
+            </div>
         </form>
     </div>
 </div>
