@@ -38,13 +38,12 @@ func setupRoutes() *gin.Engine {
 					break
 				}
 
+				log.Println(string(msg))
+
 				//if msg is ping, send back pong to client
 				if string(msg) == "ping" {
-					wsutil.WriteServerMessage(conn, ws.OpPong, []byte("pong"))
-				}
-
-				if msg != nil {
-
+					wsutil.WriteServerMessage(conn, ws.OpText, []byte("pong"))
+				} else if msg != nil {
 					log.Printf("Vote given: %v \n", int(msg[1]))
 					if IsVote(int(msg[1])) {
 						log.Println("Vote given....")
