@@ -1,12 +1,8 @@
 package main
 
 import (
-	"net"
-
 	"github.com/pkg/browser"
 )
-
-var Clients = make(map[net.Conn]int)
 
 func main() {
 	r := setupRoutes()
