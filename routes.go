@@ -57,9 +57,9 @@ func setupRoutes() *gin.Engine {
 						//notiy all clients that vote was made
 						if decisionMade {
 							broadcastAllReset()
+						} else {
+							broadCastVoteStatus()
 						}
-
-						broadCastVoteStatus()
 
 					} else {
 						log.Println("Action key given...")
