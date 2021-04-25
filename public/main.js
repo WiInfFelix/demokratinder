@@ -1,3 +1,5 @@
+const { console } = require("window-or-global");
+
 const url = "ws://" + window.location.host + "/ws";
 const ws = new WebSocket(url);
 const overlay_votingbtn = document.querySelector(".button-overlay");
@@ -26,13 +28,14 @@ ws.onopen = function () {
 
 ws.onmessage = function(event) {
     const msg = JSON.parse(event.data);
+    console.log(JSON.stringify(msg))
     if (msg.msg_type == 'pong') {
         pong();
         return;
     }
     if(msg.msg_type == 'reset_vote') {
         restoreVotingButtons();
-        infotext.innerHTML = "Decision made! Please vote!";
+        infotext.innerHTML = msg.decision_taken + " given! Please vote!";
         return;
     }
     if(msg.msg_type == 'votemade') {

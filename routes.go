@@ -52,11 +52,11 @@ func setupRoutes() *gin.Engine {
 						log.Println("Vote given....")
 						Clients[conn] = int(msg[1])
 
-						decisionMade := CheckVotingMap()
+						decisionMade, decisionTaken := CheckVotingMap()
 
 						//notiy all clients that vote was made
 						if decisionMade {
-							broadcastAllReset()
+							broadcastAllReset(decisionTaken)
 						} else {
 							broadCastVoteStatus()
 						}
@@ -93,9 +93,10 @@ func gracefulDown() {
 }
 
 //Method that broadcasts all clients that a decision was taken and votes have been reset
-func broadcastAllReset() {
+func broadcastAllReset(decisionTaken string) {
 	resetMsg := &Message{
-		MessageType: "reset_vote",
+		MessageType:   "reset_vote",
+		DecisionTaken: decisionTaken,
 	}
 
 	resetMsgJSON, err := json.Marshal(resetMsg)

@@ -10,7 +10,7 @@ import (
 
 var kb keybd_event.KeyBonding
 
-func CheckVotingMap() (decisionMade bool) {
+func CheckVotingMap() (decisionMade bool, decisionTaken string) {
 	log.Println("Checking map for decisions....")
 
 	var voteCheck = make(map[int]int)
@@ -21,19 +21,18 @@ func CheckVotingMap() (decisionMade bool) {
 	_, found := voteCheck[0]
 
 	if found {
-		return false
+		return false, ""
 	} else {
-		MakeKeyDecision(voteCheck)
+		dec := MakeKeyDecision(voteCheck)
 		for x := range Clients {
 			Clients[x] = 0
 		}
 		log.Println("Votes reset...")
-		return true
+		return true, dec
 	}
-
 }
 
-func MakeKeyDecision(check map[int]int) {
+func MakeKeyDecision(check map[int]int) (decisionTaken string) {
 
 	var winnerKey, winnerValue int
 
@@ -47,29 +46,31 @@ func MakeKeyDecision(check map[int]int) {
 
 	log.Printf("Vote %v won with %d number of votes", winnerKey, winnerValue)
 
-	executeKeyStroke(winnerKey)
+	dec := executeKeyStroke(winnerKey)
+
+	return dec
 }
 
-func executeKeyStroke(value int) {
+func executeKeyStroke(value int) (decisionTaken string) {
 	log.Println("Deciding on Key")
 	var k string
 
 	switch value {
 	case 49:
-		k = "right"
+		k = "Like"
 		kb.SetKeys(keybd_event.VK_RIGHT)
 	case 50:
-		k = "left"
+		k = "Nope"
 		kb.SetKeys(keybd_event.VK_LEFT)
 	case 51:
-		k = "space"
+		k = "Next pic"
 		//The function loops if this is triggered on a desktop: can be disabled for desktop in future
 		kb.SetKeys(keybd_event.VK_SPACE)
 	case 52:
-		k = "up"
+		k = "Open description"
 		kb.SetKeys(keybd_event.VK_UP)
 	case 53:
-		k = "down"
+		k = "Close description"
 		kb.SetKeys(keybd_event.VK_DOWN)
 	}
 
@@ -78,6 +79,8 @@ func executeKeyStroke(value int) {
 	if err != nil {
 		log.Fatalf("There was an error when pressing the keys: %v", err)
 	}
+
+	return k
 }
 
 func initKeyboardMod() {
